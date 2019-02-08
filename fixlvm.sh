@@ -2,12 +2,13 @@
 set -e
 
 programname=$0
-vg_name=$(dmsetup ls | grep $1 | awk '{print $1}' | sed 's/--/-/g' | cut -d - -f1-2)
 
 function yellow { echo -e "\e[33m$@\e[0m"; }
 function red { echo -e "\e[31m$@\e[0m"; }
 
 function lvm_exist {
+  vg_name=$(dmsetup ls | grep $1 | awk '{print $1}' | sed 's/--/-/g' | cut -d - -f1-2)
+  
   if [ -z "$vg_name" ]
   then
      read -p 'Volume Group: ' vg_name
